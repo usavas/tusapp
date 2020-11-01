@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tusapp/global_widgets.dart';
 import 'home_screen_jumbotron.dart';
+import 'quiz_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
@@ -36,7 +37,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 HeaderSpacer(),
                 HomeScreenButton(
                   buttonText: 'Geçmiş Yılların Sınavları',
-                  onPressedFunction: () {},
+                  onPressedFunction: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => QuizScreen(),
+                        ));
+                  },
                 ),
                 SimpleSpacer(),
                 HomeScreenButton(
@@ -59,32 +66,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                   height: 20,
                 ),
-                SizedBox(
-                  width: double.infinity,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 32),
-                    child: RaisedButton(
-                      padding: EdgeInsets.all(20),
-                      child: Text('Konuları Göster'),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18)),
-                      onPressed: () {},
-                    ),
-                  ),
+                HomeScreenButton(
+                  buttonText: 'Konuları Göster',
+                  onPressedFunction: () {},
                 ),
                 SimpleSpacer(),
-                SizedBox(
-                  width: double.infinity,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 32),
-                    child: RaisedButton(
-                      padding: EdgeInsets.all(20),
-                      child: Text('Notlarımı Göster'),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18)),
-                      onPressed: () {},
-                    ),
-                  ),
+                HomeScreenButton(
+                  buttonText: 'Notlarımı Göster',
+                  onPressedFunction: () {},
                 ),
                 SizedBox(
                   height: 100,
