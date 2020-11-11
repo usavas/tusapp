@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tusapp/home_screen.dart';
 
 class QuizResultScreen extends StatelessWidget {
   const QuizResultScreen({Key key}) : super(key: key);
