@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tusapp/global_widgets.dart';
 import 'home_screen_jumbotron.dart';
-import 'quiz_screen.dart';
+import 'widgets/buttons.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
@@ -35,19 +35,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       .copyWith(color: Colors.white),
                 ),
                 HeaderSpacer(),
-                HomeScreenButton(
+                WideButton(
                   buttonText: 'Geçmiş Yılların Sınavları',
                   onPressedFunction: () {
-                    Navigator.pushNamed(context, '/quiz_screen');
+                    Navigator.pushNamed(
+                        context, '/past_years_questions_screen');
                   },
                 ),
                 SimpleSpacer(),
-                HomeScreenButton(
+                WideButton(
                   buttonText: 'Konularına Göre Testler',
                   onPressedFunction: () {},
                 ),
                 SimpleSpacer(),
-                HomeScreenButton(
+                WideButton(
                   buttonText: 'Karma Test',
                   onPressedFunction: () {},
                 ),
@@ -62,12 +63,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                   height: 20,
                 ),
-                HomeScreenButton(
+                WideButton(
                   buttonText: 'Konuları Göster',
                   onPressedFunction: () {},
                 ),
                 SimpleSpacer(),
-                HomeScreenButton(
+                WideButton(
                   buttonText: 'Notlarımı Göster',
                   onPressedFunction: () {},
                 ),
@@ -76,33 +77,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class HomeScreenButton extends StatelessWidget {
-  const HomeScreenButton({Key key, this.buttonText, this.onPressedFunction})
-      : super(key: key);
-
-  final String buttonText;
-  final Function onPressedFunction;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: SizedBox(
-        width: double.infinity,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32),
-          child: RaisedButton(
-            padding: EdgeInsets.all(20),
-            child: Text(buttonText),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-            onPressed: onPressedFunction,
           ),
         ),
       ),

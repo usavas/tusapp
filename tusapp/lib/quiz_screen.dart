@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tusapp/consts.dart';
 import 'package:tusapp/global_widgets.dart';
 import 'package:tusapp/quiz_result_screen.dart';
 
@@ -165,26 +166,39 @@ class Question extends StatelessWidget {
   }
 }
 
-class Option extends StatelessWidget {
+class Option extends StatefulWidget {
   const Option(this.option, {Key key}) : super(key: key);
 
   final String option;
 
   @override
+  _OptionState createState() => _OptionState();
+}
+
+class _OptionState extends State<Option> {
+  bool isSelected = false;
+
+  @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-            padding: EdgeInsets.all(16),
-            width: double.infinity,
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.black, width: .6),
-                borderRadius: BorderRadius.circular(20)),
-            child: Text(option)),
-        SizedBox(
-          height: 4,
-        )
-      ],
+    TextStyle _textStyle = Theme.of(context).textTheme.bodyText2;
+    return Card(
+      color: isSelected ? Colors.blue : Theme.of(context).cardTheme.color,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(kCardBorderRadius),
+        onTap: () {
+          setState(() {
+            isSelected = !isSelected;
+          });
+        },
+        child: Container(
+          padding: EdgeInsets.all(16),
+          width: double.infinity,
+          child: Text(widget.option,
+              style: isSelected
+                  ? _textStyle.copyWith(color: Colors.white)
+                  : _textStyle),
+        ),
+      ),
     );
   }
 }

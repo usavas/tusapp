@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tusapp/consts.dart';
 import 'package:tusapp/home_screen.dart';
+import 'package:tusapp/past_years_questions_screen.dart';
 import 'package:tusapp/quiz_result_screen.dart';
 import 'package:tusapp/quiz_screen.dart';
 
@@ -10,12 +12,11 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Color _textColor = Color(0xFF535252);
-
     return MaterialApp(
       initialRoute: '/',
       routes: {
         '/': (context) => HomeScreen(),
+        '/past_years_questions_screen': (context) => PastYearsQustionsScreen(),
         '/quiz_screen': (context) => QuizScreen(),
         '/quiz_result_screen': (context) => QuizResultScreen(),
       },
@@ -24,16 +25,20 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         textTheme: TextTheme(
             headline1: TextStyle(
-                color: _textColor, fontSize: 32, fontWeight: FontWeight.w400),
-            headline2: TextStyle(color: _textColor, fontSize: 24),
-            headline4: TextStyle(color: _textColor, fontSize: 20),
-            headline6: TextStyle(color: _textColor, fontSize: 18),
-            button: TextStyle(color: _textColor, fontSize: 16),
-            bodyText1: TextStyle(color: _textColor, fontSize: 16),
-            bodyText2: TextStyle(color: _textColor, fontSize: 12)),
+                color: kDefaultTextColor,
+                fontSize: 32,
+                fontWeight: FontWeight.w400),
+            headline2: TextStyle(color: kDefaultTextColor, fontSize: 24),
+            headline4: TextStyle(color: kDefaultTextColor, fontSize: 20),
+            headline6: TextStyle(color: kDefaultTextColor, fontSize: 18),
+            button: TextStyle(color: kDefaultTextColor, fontSize: 16),
+            bodyText1: TextStyle(color: kDefaultTextColor, fontSize: 16),
+            bodyText2: TextStyle(color: kDefaultTextColor, fontSize: 12)),
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        cardTheme: CardTheme(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(kCardBorderRadius))),
       ),
-      // home: HomeScreen(),
     );
   }
 }
