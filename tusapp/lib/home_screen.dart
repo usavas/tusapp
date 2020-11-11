@@ -38,11 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 HomeScreenButton(
                   buttonText: 'Geçmiş Yılların Sınavları',
                   onPressedFunction: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => QuizScreen(),
-                        ));
+                    Navigator.pushNamed(context, '/quiz_screen');
                   },
                 ),
                 SimpleSpacer(),

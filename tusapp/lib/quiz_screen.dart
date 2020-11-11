@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tusapp/global_widgets.dart';
+import 'package:tusapp/quiz_result_screen.dart';
 
 class QuizScreen extends StatefulWidget {
   QuizScreen({Key key}) : super(key: key);
@@ -44,7 +45,9 @@ class _QuizScreenState extends State<QuizScreen> {
                         borderRadius: BorderRadius.circular(20),
                         side: BorderSide(color: Colors.black, width: .6)),
                     child: Text('Bitir'),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/quiz_result_screen');
+                    },
                   ),
                   SizedBox(
                     width: 12,
