@@ -101,7 +101,7 @@ class _OptionViewState extends State<OptionView> {
         onTap: provider.isAnswerChecked
             ? null
             : () {
-                provider.changeSelectedIndex(widget.optionIndex);
+                provider.changeSelectedOptionIndex(widget.optionIndex);
               },
         child: Container(
           padding: EdgeInsets.all(16),

@@ -7,7 +7,7 @@ class QuizResultScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ResultArguments resultArgs =
+    final QuestionResultArguments resultArgs =
         ModalRoute.of(context).settings.arguments;
     return Material(
       child: SafeArea(

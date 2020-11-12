@@ -34,7 +34,7 @@ class _QuizScreenState extends State<QuizScreen> {
               child: SingleChildScrollView(
                   child: Column(
                 children: [
-                  QuizScreenHeaderRow(),
+                  QuizScreenHeaderRow(numberOfQuestions),
                   QuestionScreen(mockQuestions[currentQuestionIndex]),
                   SimpleSpacer(),
                   Consumer<SelectedOptionProvider>(
@@ -50,7 +50,7 @@ class _QuizScreenState extends State<QuizScreen> {
                           onPressed: () {
                             Navigator.pushNamed(
                                 context, QuizResultScreen.routeName,
-                                arguments: ResultArguments(
+                                arguments: QuestionResultArguments(
                                     provider.countCorrectAnswers,
                                     currentQuestionIndex));
                           },
@@ -72,10 +72,12 @@ class _QuizScreenState extends State<QuizScreen> {
                                   : Text('Kontrol Et'),
                               onPressed: provider.isAnswerChecked
                                   ? () {
+                                      provider.incrementCurrentQuestionIndex();
+
                                       if (isLastQuestion) {
                                         Navigator.pushNamed(
                                             context, '/quiz_result_screen',
-                                            arguments: ResultArguments(
+                                            arguments: QuestionResultArguments(
                                                 provider.countCorrectAnswers,
                                                 numberOfQuestions));
                                         return;
@@ -111,7 +113,10 @@ class _QuizScreenState extends State<QuizScreen> {
 }
 
 class QuizScreenHeaderRow extends StatelessWidget {
-  const QuizScreenHeaderRow({Key key}) : super(key: key);
+  const QuizScreenHeaderRow(this.numberOfQuestions, {Key key})
+      : super(key: key);
+
+  final int numberOfQuestions;
 
   @override
   Widget build(BuildContext context) {
@@ -121,37 +126,42 @@ class QuizScreenHeaderRow extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: Column(
-              children: [
-                Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black, width: .8),
-                        borderRadius: BorderRadius.circular(20)),
-                    child: Text(
-                      '36/120',
-                      style: Theme.of(context).textTheme.headline6,
-                    )),
-                SimpleSpacer(),
-                Stack(
-                  children: [
-                    Container(
-                      height: 12,
+            child: Consumer<SelectedOptionProvider>(
+              builder: (context, provider, child) => Column(
+                children: [
+                  Container(
+                      width: double.infinity,
+                      padding:
+                          EdgeInsets.symmetric(vertical: 8, horizontal: 20),
                       decoration: BoxDecoration(
                           border: Border.all(color: Colors.black, width: .8),
                           borderRadius: BorderRadius.circular(20)),
-                    ),
-                    Container(
-                      width: 40,
-                      height: 12,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.green),
-                    )
-                  ],
-                )
-              ],
+                      child: Text(
+                        provider.currentQuestionIndex.toString() +
+                            '/' +
+                            numberOfQuestions.toString(),
+                        style: Theme.of(context).textTheme.headline6,
+                      )),
+                  SimpleSpacer(),
+                  Stack(
+                    children: [
+                      Container(
+                        height: 12,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black, width: .8),
+                            borderRadius: BorderRadius.circular(20)),
+                      ),
+                      Container(
+                        width: 40,
+                        height: 12,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.green),
+                      )
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
           SizedBox(
@@ -183,9 +193,9 @@ class QuizScreenHeaderRow extends StatelessWidget {
   }
 }
 
-class ResultArguments {
+class QuestionResultArguments {
   final int succesfulQuestions;
   final int totalQuestions;
 
-  const ResultArguments(this.succesfulQuestions, this.totalQuestions);
+  const QuestionResultArguments(this.succesfulQuestions, this.totalQuestions);
 }
