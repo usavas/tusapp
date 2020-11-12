@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tusapp/widgets/buttons.dart';
 
-class PastYearsQustionsScreen extends StatelessWidget {
-  const PastYearsQustionsScreen({Key key}) : super(key: key);
+import 'crosscutting/widgets/buttons.dart';
+
+class PastYearsExamsScreen extends StatelessWidget {
+  const PastYearsExamsScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

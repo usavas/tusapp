@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tusapp/global_widgets.dart';
-import 'home_screen_jumbotron.dart';
-import 'widgets/buttons.dart';
+import 'package:tusapp/crosscutting/widgets/spacers.dart';
+import '../crosscutting/widgets/buttons.dart';
+import '../main_screens/home_screen_jumbotron.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);

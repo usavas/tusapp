@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tusapp/consts.dart';
-import 'package:tusapp/global_widgets.dart';
-import 'package:tusapp/selected_option_provider.dart';
+import 'package:tusapp/crosscutting/consts.dart';
+import 'package:tusapp/crosscutting/widgets/spacers.dart';
+import 'package:tusapp/question_screens/question_view.dart';
+import 'package:tusapp/question_screens/selected_option_provider.dart';
 
-class QuizScreen extends StatefulWidget {
-  QuizScreen({Key key}) : super(key: key);
+import 'option_view.dart';
+
+class QuestionScreen extends StatefulWidget {
+  QuestionScreen({Key key}) : super(key: key);
 
   @override
-  _QuizScreenState createState() => _QuizScreenState();
+  _QuestionScreenState createState() => _QuestionScreenState();
 }
 
-class _QuizScreenState extends State<QuizScreen> {
+class _QuestionScreenState extends State<QuestionScreen> {
   final String question =
       "Aşağıdaki arterlerden hangisi arteria thoracica interna'nın dallarından biri değildir?";
   final String a = 'A) Arteria pericardiacophrenica';
@@ -32,7 +35,7 @@ class _QuizScreenState extends State<QuizScreen> {
             create: (context) => SelectedOptionProvider(),
             child: Column(
               children: [
-                QuizScreenHeaderRow(),
+                QuestionScreenHeaderRow(),
                 SemanticSpacer(),
                 Question(question),
                 Option(a, 1),
@@ -90,8 +93,8 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 }
 
-class QuizScreenHeaderRow extends StatelessWidget {
-  const QuizScreenHeaderRow({Key key}) : super(key: key);
+class QuestionScreenHeaderRow extends StatelessWidget {
+  const QuestionScreenHeaderRow({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -158,84 +161,6 @@ class QuizScreenHeaderRow extends StatelessWidget {
                 ],
               ))
         ],
-      ),
-    );
-  }
-}
-
-class Question extends StatelessWidget {
-  const Question(this.question, {Key key}) : super(key: key);
-
-  final String question;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-          // height: 200,
-          child: Center(
-            child: Text(question, style: Theme.of(context).textTheme.bodyText1),
-          )),
-    );
-  }
-}
-
-class Option extends StatefulWidget {
-  const Option(this.option, this.optionIndex, {Key key, this.isAnswer = false})
-      : super(key: key);
-
-  final String option;
-  final int optionIndex;
-  final bool isAnswer;
-
-  @override
-  _OptionState createState() => _OptionState();
-}
-
-class _OptionState extends State<Option> {
-  @override
-  Widget build(BuildContext context) {
-    TextStyle _defaultTextStyle = Theme.of(context).textTheme.bodyText2;
-    TextStyle _textStyle = Theme.of(context).textTheme.bodyText2;
-    Color _cardColor = Theme.of(context).cardTheme.color;
-
-    SelectedOptionProvider provider =
-        Provider.of<SelectedOptionProvider>(context);
-    final bool isSelected = widget.optionIndex == provider.selectedIndex;
-
-    if (provider.isAnswerChecked) {
-      if (widget.isAnswer) {
-        _cardColor = Colors.green;
-        _textStyle = _defaultTextStyle.copyWith(color: Colors.white);
-      } else if (isSelected && !widget.isAnswer) {
-        _cardColor = Colors.red;
-        _textStyle = _defaultTextStyle.copyWith(color: Colors.white);
-      }
-    } else {
-      if (isSelected) {
-        _textStyle = _defaultTextStyle.copyWith(color: Colors.white);
-        _cardColor = Colors.blue;
-      } else {
-        _cardColor = Theme.of(context).cardTheme.color;
-        _textStyle = _defaultTextStyle;
-      }
-    }
-
-    return Card(
-      color: _cardColor,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(kCardBorderRadius),
-        onTap: provider.isAnswerChecked
-            ? null
-            : () {
-                provider.changeSelectedIndex(widget.optionIndex);
-              },
-        child: Container(
-          padding: EdgeInsets.all(16),
-          width: double.infinity,
-          child: Text(widget.option, style: _textStyle),
-        ),
       ),
     );
   }
