@@ -68,31 +68,34 @@ class _QuizScreenState extends State<QuizScreen> {
                                     BorderSide(color: Colors.black, width: .6),
                               ),
                               child: provider.isAnswerChecked
-                                  ? Text('Sonraki soru')
+                                  ? ((isLastQuestion
+                                      ? Text('Testi Bitir')
+                                      : Text('Sonraki soru')))
                                   : Text('Kontrol Et'),
                               onPressed: provider.isAnswerChecked
                                   ? () {
-                                      provider.incrementCurrentQuestionIndex();
-
                                       if (isLastQuestion) {
                                         Navigator.pushNamed(
                                             context, '/quiz_result_screen',
                                             arguments: QuestionResultArguments(
                                                 provider.countCorrectAnswers,
                                                 numberOfQuestions));
-                                        return;
+                                      } else {
+                                        provider
+                                            .incrementCurrentQuestionIndex();
+
+                                        setState(() {
+                                          if (currentQuestionIndex <
+                                              lastQuestionIndex) {
+                                            currentQuestionIndex++;
+                                            provider.resetOptionState();
+                                          } else if (currentQuestionIndex ==
+                                              lastQuestionIndex) {
+                                            isLastQuestion = true;
+                                            provider.resetOptionState();
+                                          }
+                                        });
                                       }
-                                      setState(() {
-                                        if (currentQuestionIndex <
-                                            lastQuestionIndex) {
-                                          currentQuestionIndex++;
-                                          provider.resetOptionState();
-                                        } else if (currentQuestionIndex ==
-                                            lastQuestionIndex) {
-                                          isLastQuestion = true;
-                                          provider.resetOptionState();
-                                        }
-                                      });
                                     }
                                   : () {
                                       currentQuestionIndex++;
@@ -112,12 +115,17 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 }
 
-class QuizScreenHeaderRow extends StatelessWidget {
+class QuizScreenHeaderRow extends StatefulWidget {
   const QuizScreenHeaderRow(this.numberOfQuestions, {Key key})
       : super(key: key);
 
   final int numberOfQuestions;
 
+  @override
+  _QuizScreenHeaderRowState createState() => _QuizScreenHeaderRowState();
+}
+
+class _QuizScreenHeaderRowState extends State<QuizScreenHeaderRow> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -139,7 +147,7 @@ class QuizScreenHeaderRow extends StatelessWidget {
                       child: Text(
                         provider.currentQuestionIndex.toString() +
                             '/' +
-                            numberOfQuestions.toString(),
+                            widget.numberOfQuestions.toString(),
                         style: Theme.of(context).textTheme.headline6,
                       )),
                   SimpleSpacer(),
@@ -151,12 +159,16 @@ class QuizScreenHeaderRow extends StatelessWidget {
                             border: Border.all(color: Colors.black, width: .8),
                             borderRadius: BorderRadius.circular(20)),
                       ),
-                      Container(
-                        width: 40,
-                        height: 12,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.green),
+                      LayoutBuilder(
+                        builder: (_, size) => Container(
+                          width: size.maxWidth *
+                              (provider.currentQuestionIndex /
+                                  widget.numberOfQuestions),
+                          height: 12,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.green),
+                        ),
                       )
                     ],
                   )
