@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tusapp/crosscutting/consts.dart';
 import 'package:tusapp/crosscutting/widgets/spacers.dart';
+import 'package:tusapp/quiz_screens/quiz_result_screen.dart';
 
 import 'mockData.dart';
 import 'question_screen.dart';
@@ -36,25 +37,29 @@ class _QuizScreenState extends State<QuizScreen> {
                   QuizScreenHeaderRow(),
                   QuestionScreen(mockQuestions[currentQuestionIndex]),
                   SimpleSpacer(),
-                  Row(
-                    children: [
-                      RaisedButton(
-                        color: Colors.white,
-                        padding: EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            side: BorderSide(color: Colors.black, width: .6)),
-                        child: Text('Bitir'),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/quiz_result_screen');
-                        },
-                      ),
-                      SizedBox(
-                        width: 12,
-                      ),
-                      Expanded(
-                        child: Consumer<SelectedOptionProvider>(
-                          builder: (context, provider, child) => RaisedButton(
+                  Consumer<SelectedOptionProvider>(
+                    builder: (context, provider, child) => Row(
+                      children: [
+                        RaisedButton(
+                          color: Colors.white,
+                          padding: EdgeInsets.symmetric(vertical: 16),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              side: BorderSide(color: Colors.black, width: .6)),
+                          child: Text('Bitir'),
+                          onPressed: () {
+                            Navigator.pushNamed(
+                                context, QuizResultScreen.routeName,
+                                arguments: ResultArguments(
+                                    provider.countCorrectAnswers,
+                                    currentQuestionIndex));
+                          },
+                        ),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        Expanded(
+                          child: RaisedButton(
                               color: Colors.white,
                               padding: EdgeInsets.symmetric(vertical: 16),
                               shape: RoundedRectangleBorder(
@@ -91,9 +96,9 @@ class _QuizScreenState extends State<QuizScreen> {
                                       currentQuestionIndex++;
                                       provider.checkAnswer();
                                     }),
-                        ),
-                      )
-                    ],
+                        )
+                      ],
+                    ),
                   )
                 ],
               )),

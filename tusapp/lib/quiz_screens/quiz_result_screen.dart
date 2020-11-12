@@ -47,7 +47,7 @@ class QuizResultScreen extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: Text('Devam Et'),
+                  child: Text('Ana Ekrana Dön'),
                   onPressed: () {
                     Navigator.popUntil((context), ModalRoute.withName('/'));
                   },

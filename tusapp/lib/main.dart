@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tusapp/crosscutting/consts.dart';
 import 'package:tusapp/main_screens/home_screen.dart';
 import 'package:tusapp/main_screens/past_years_exams_screen.dart';
-import 'package:tusapp/main_screens/quiz_result_screen.dart';
+import 'package:tusapp/quiz_screens/quiz_result_screen.dart';
 import 'package:tusapp/quiz_screens/quiz_screen.dart';
 
 void main() {
