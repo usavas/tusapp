@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tusapp/crosscutting/consts.dart';
 import 'package:tusapp/main_screens/home_screen.dart';
-import 'package:tusapp/past_years_exams_screen.dart';
-import 'package:tusapp/quiz_result_screen.dart';
-import 'package:tusapp/question_screens/question_screen.dart';
+import 'package:tusapp/main_screens/past_years_exams_screen.dart';
+import 'package:tusapp/main_screens/quiz_result_screen.dart';
+import 'package:tusapp/quiz_screens/quiz_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,9 +16,9 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => HomeScreen(),
-        '/past_years_questions_screen': (context) => PastYearsExamsScreen(),
-        '/quiz_screen': (context) => QuestionScreen(),
-        '/quiz_result_screen': (context) => QuizResultScreen(),
+        PastYearsExamsScreen.routeName: (context) => PastYearsExamsScreen(),
+        QuizScreen.routeName: (context) => QuizScreen(),
+        QuizResultScreen.routeName: (context) => QuizResultScreen(),
       },
       debugShowCheckedModeBanner: false,
       title: 'Tus App',

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tusapp/crosscutting/widgets/spacers.dart';
+import 'package:tusapp/main_screens/past_years_exams_screen.dart';
 import '../crosscutting/widgets/buttons.dart';
 import '../main_screens/home_screen_jumbotron.dart';
 
@@ -39,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   buttonText: 'Geçmiş Yılların Sınavları',
                   onPressedFunction: () {
                     Navigator.pushNamed(
-                        context, '/past_years_questions_screen');
+                        context, PastYearsExamsScreen.routeName);
                   },
                 ),
                 SimpleSpacer(),

@@ -1,11 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tusapp/question_screens/selected_option_provider.dart';
+import 'package:tusapp/crosscutting/consts.dart';
+import 'package:tusapp/models/option.dart';
+import 'package:tusapp/models/question.dart';
+import 'selected_option_provider.dart';
 
-import '../crosscutting/consts.dart';
+class QuestionScreen extends StatefulWidget {
+  QuestionScreen(this.question, {Key key}) : super(key: key);
 
-class Option extends StatefulWidget {
-  const Option(this.option, this.optionIndex, {Key key, this.isAnswer = false})
+  final Question question;
+
+  @override
+  _QuestionScreenState createState() => _QuestionScreenState();
+}
+
+class _QuestionScreenState extends State<QuestionScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        QuestionView(widget.question.questionText),
+        ..._createOptions(widget.question.options)
+      ],
+    );
+  }
+}
+
+class QuestionView extends StatelessWidget {
+  const QuestionView(this.question, {Key key}) : super(key: key);
+
+  final String question;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+      child: Center(
+        child: Text(question, style: Theme.of(context).textTheme.bodyText1),
+      ),
+    );
+  }
+}
+
+List<Widget> _createOptions(List<Option> options) {
+  return <Widget>[
+    ...options.map((o) => OptionView(o.optionText, options.indexOf(o) + 1,
+        isAnswer: o.isCorrect)),
+  ];
+}
+
+class OptionView extends StatefulWidget {
+  const OptionView(this.option, this.optionIndex,
+      {Key key, this.isAnswer = false})
       : super(key: key);
 
   final String option;
@@ -13,10 +59,10 @@ class Option extends StatefulWidget {
   final bool isAnswer;
 
   @override
-  _OptionState createState() => _OptionState();
+  _OptionViewState createState() => _OptionViewState();
 }
 
-class _OptionState extends State<Option> {
+class _OptionViewState extends State<OptionView> {
   @override
   Widget build(BuildContext context) {
     TextStyle _defaultTextStyle = Theme.of(context).textTheme.bodyText2;
@@ -31,6 +77,9 @@ class _OptionState extends State<Option> {
       if (widget.isAnswer) {
         _cardColor = Colors.green;
         _textStyle = _defaultTextStyle.copyWith(color: Colors.white);
+        if (isSelected) {
+          provider.incrementCorrectAnswers();
+        }
       } else if (isSelected && !widget.isAnswer) {
         _cardColor = Colors.red;
         _textStyle = _defaultTextStyle.copyWith(color: Colors.white);

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'crosscutting/widgets/buttons.dart';
+import '../crosscutting/widgets/buttons.dart';
 
 class PastYearsExamsScreen extends StatelessWidget {
   const PastYearsExamsScreen({Key key}) : super(key: key);
-
+  static const String routeName = '/past_years_exams_screen';
   @override
   Widget build(BuildContext context) {
     return Container(

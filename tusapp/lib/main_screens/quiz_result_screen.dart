@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:tusapp/quiz_screens/quiz_screen.dart';
 
 class QuizResultScreen extends StatelessWidget {
   const QuizResultScreen({Key key}) : super(key: key);
+  static const String routeName = '/quiz_result_screen';
 
   @override
   Widget build(BuildContext context) {
+    final ResultArguments resultArgs =
+        ModalRoute.of(context).settings.arguments;
     return Material(
       child: SafeArea(
         child: Center(
@@ -23,7 +27,9 @@ class QuizResultScreen extends StatelessWidget {
                 padding: EdgeInsets.only(top: 24),
               ),
               Text(
-                '46/60',
+                resultArgs.succesfulQuestions.toString() +
+                    '/' +
+                    resultArgs.totalQuestions.toString(),
                 style: Theme.of(context).textTheme.headline2,
               ),
               Text(
