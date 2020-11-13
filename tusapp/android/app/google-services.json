@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "757395773027",
+    "firebase_url": "https://tusapp-cf71f.firebaseio.com",
+    "project_id": "tusapp-cf71f",
+    "storage_bucket": "tusapp-cf71f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:757395773027:android:abc5c9e10c3da6a8d50a56",
+        "android_client_info": {
+          "package_name": "com.appicient.tusapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "757395773027-64m6hp9u1soectn4c2d4ovljheh7hlop.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.appicient.tusapp",
+            "certificate_hash": "ac80cd69510544658f15f6f2ec2c6024c6c12f8b"
+          }
+        },
+        {
+          "client_id": "757395773027-ibcrm70a55tj5ts07n6d6tlq52eslqco.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAk_N0H0HKoPa5r8OkjXsHHA3qOReermy8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "757395773027-ibcrm70a55tj5ts07n6d6tlq52eslqco.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
