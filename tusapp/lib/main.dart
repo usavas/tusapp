@@ -1,11 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:tusapp/authentication_screens/welcome_screen.dart';
 import 'package:tusapp/crosscutting/theme_data.dart';
 import 'package:tusapp/main_screens/home_screen.dart';
 import 'package:tusapp/main_screens/past_years_exams_screen.dart';
 import 'package:tusapp/quiz_screens/quiz_result_screen.dart';
 import 'package:tusapp/quiz_screens/quiz_screen.dart';
 
+import 'authentication_screens/create_user_screen.dart';
 import 'loading_screen.dart';
 import 'something_went_wrong_screen.dart';
 
@@ -27,13 +29,15 @@ class MyApp extends StatelessWidget {
           }
           if (snapshot.connectionState == ConnectionState.done) {
             return MaterialApp(
-              initialRoute: '/',
+              initialRoute: WelcomeScreen.routeName,
               routes: {
                 '/': (context) => HomeScreen(),
                 PastYearsExamsScreen.routeName: (context) =>
                     PastYearsExamsScreen(),
                 QuizScreen.routeName: (context) => QuizScreen(),
                 QuizResultScreen.routeName: (context) => QuizResultScreen(),
+                CreateUserScreen.routeName: (context) => CreateUserScreen(),
+                WelcomeScreen.routeName: (context) => WelcomeScreen(),
               },
               debugShowCheckedModeBanner: false,
               title: 'Tus App',
