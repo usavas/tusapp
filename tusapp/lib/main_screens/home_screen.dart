@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tusapp/crosscutting/consts.dart';
 import 'package:tusapp/crosscutting/widgets/spacers.dart';
 import 'package:tusapp/main_screens/past_years_exams_screen.dart';
 import '../crosscutting/widgets/buttons.dart';
@@ -17,17 +18,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          decoration: new BoxDecoration(
-              gradient: new LinearGradient(
-            begin: Alignment.bottomCenter,
-            end: Alignment.topCenter,
-            colors: [Color(0xFF405998), Color(0xFFAA27F5)],
-          )),
+          decoration: kPageBgDecoration,
           child: SingleChildScrollView(
             child: Column(
               children: [
                 HomeScreenJumbotron(),
-                SemanticSpacer(),
+                SectionSpacer(),
                 Text(
                   'Test Çöz',
                   style: Theme.of(context)
@@ -35,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       .headline4
                       .copyWith(color: Colors.white),
                 ),
-                HeaderSpacer(),
+                WiderSpacer(),
                 WideButton(
                   buttonText: 'Geçmiş Yılların Sınavları',
                   onPressedFunction: () {
@@ -53,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   buttonText: 'Karma Test',
                   onPressedFunction: () {},
                 ),
-                SemanticSpacer(),
+                SectionSpacer(),
                 Text(
                   'Konu Çalış',
                   style: Theme.of(context)

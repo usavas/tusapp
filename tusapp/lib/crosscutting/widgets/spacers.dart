@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SemanticSpacer extends StatelessWidget {
-  const SemanticSpacer({Key key}) : super(key: key);
+class SectionSpacer extends StatelessWidget {
+  const SectionSpacer({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -9,8 +9,8 @@ class SemanticSpacer extends StatelessWidget {
   }
 }
 
-class HeaderSpacer extends StatelessWidget {
-  const HeaderSpacer({Key key}) : super(key: key);
+class WiderSpacer extends StatelessWidget {
+  const WiderSpacer({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class EndOfScreenSpacer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 8,
+      height: 60,
     );
   }
 }

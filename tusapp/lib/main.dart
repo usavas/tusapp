@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:tusapp/authentication_screens/login_with_email_screen.dart';
 import 'package:tusapp/authentication_screens/welcome_screen.dart';
 import 'package:tusapp/crosscutting/theme_data.dart';
 import 'package:tusapp/main_screens/home_screen.dart';
@@ -38,6 +39,8 @@ class MyApp extends StatelessWidget {
                 QuizResultScreen.routeName: (context) => QuizResultScreen(),
                 CreateUserScreen.routeName: (context) => CreateUserScreen(),
                 WelcomeScreen.routeName: (context) => WelcomeScreen(),
+                LoginWithEmailAndPasswordScreen.routeName: (context) =>
+                    LoginWithEmailAndPasswordScreen(),
               },
               debugShowCheckedModeBanner: false,
               title: 'Tus App',

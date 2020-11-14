@@ -97,7 +97,7 @@ class _OptionViewState extends State<OptionView> {
     return Card(
       color: _cardColor,
       child: InkWell(
-        borderRadius: BorderRadius.circular(kCardBorderRadius),
+        borderRadius: BorderRadius.circular(kCardBorderRadiusSize),
         onTap: provider.isAnswerChecked
             ? null
             : () {

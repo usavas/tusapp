@@ -15,5 +15,5 @@ ThemeData mainThemeData = ThemeData(
   visualDensity: VisualDensity.adaptivePlatformDensity,
   cardTheme: CardTheme(
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(kCardBorderRadius))),
+          borderRadius: BorderRadius.circular(kCardBorderRadiusSize))),
 );
