@@ -1,21 +1,23 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:tusapp/authentication_screens/signin_with_email_screen.dart';
+import 'package:tusapp/authentication_screens/verify_email_wait_screen.dart';
 import 'package:tusapp/crosscutting/consts.dart';
 import 'package:tusapp/crosscutting/widgets/buttons.dart';
 import 'package:tusapp/crosscutting/widgets/spacers.dart';
 import 'package:tusapp/authentication/auth_service.dart';
 
-class LoginWithEmailAndPasswordScreen extends StatefulWidget {
-  LoginWithEmailAndPasswordScreen({Key key}) : super(key: key);
+class SignupWithEmailAndPasswordScreen extends StatefulWidget {
+  SignupWithEmailAndPasswordScreen({Key key}) : super(key: key);
 
-  static const routeName = '/login/login_with_email';
+  static const routeName = '/auth/signup_with_email';
   @override
-  _LoginWithEmailAndPasswordScreenState createState() =>
-      _LoginWithEmailAndPasswordScreenState();
+  _SignupWithEmailAndPasswordScreenState createState() =>
+      _SignupWithEmailAndPasswordScreenState();
 }
 
-class _LoginWithEmailAndPasswordScreenState
-    extends State<LoginWithEmailAndPasswordScreen> {
+class _SignupWithEmailAndPasswordScreenState
+    extends State<SignupWithEmailAndPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwdController = TextEditingController();
@@ -66,25 +68,34 @@ class _LoginWithEmailAndPasswordScreenState
                               }
                               return null;
                             },
+                            isPasswd: true,
                           ),
                           SimpleSpacer(),
-                          TextInput('Şifrenizi tekrar girin.',
-                              _passwdRepeatController, (value) {
-                            if (_passwdController.text != value) {
-                              return 'Girdiğiniz şifreler birbiriyle aynı olmalıdır.';
-                            }
-                            return null;
-                          }),
+                          TextInput(
+                            'Şifrenizi tekrar girin.',
+                            _passwdRepeatController,
+                            (value) {
+                              if (value != '' &&
+                                  _passwdController.text != value) {
+                                return 'Girdiğiniz şifreler birbiriyle aynı olmalıdır.';
+                              }
+                              return null;
+                            },
+                            isPasswd: true,
+                          ),
                           WiderSpacer(),
-                          WideButton(
-                              buttonText: 'Kaydol',
-                              onPressedFunction: () {
-                                if (_formKey.currentState.validate()) {
-                                  _createUserWithEmailAndPasswd(
-                                      _emailController.text,
-                                      _passwdController.text);
-                                }
-                              }),
+                          Builder(
+                            builder: (context) => WideButton(
+                                buttonText: 'Kaydol',
+                                onPressedFunction: () {
+                                  if (_formKey.currentState.validate()) {
+                                    _createUserWithEmailAndPasswd(
+                                        _emailController.text,
+                                        _passwdController.text,
+                                        context);
+                                  }
+                                }),
+                          ),
                         ],
                       ))
                 ],
@@ -95,36 +106,54 @@ class _LoginWithEmailAndPasswordScreenState
   }
 
   bool _validateEmail(String email) {
+    if (email.trim() == '') {
+      return false;
+    }
     return true;
   }
 
   bool _validatePasswd(String passwd) {
+    if (passwd.trim() == '') {
+      return false;
+    }
     return true;
   }
 
-  _createUserWithEmailAndPasswd(String email, String passwd) async {
-    UserCredential credentials;
-
+  _createUserWithEmailAndPasswd(
+      String email, String passwd, BuildContext context) async {
     try {
-      credentials = await AuthService.getInstance
+      if (AuthService.getService.getAuthInstance.currentUser != null) {
+        await AuthService.getService.getAuthInstance.currentUser.reload();
+        if (AuthService.getService.getAuthInstance.currentUser.emailVerified) {
+          Scaffold.of(context).showSnackBar(SnackBar(
+            content: Text('Zaten kaydınız var. Login ekranına gidiniz.'),
+          ));
+          return;
+        }
+      }
+      UserCredential userCredential = await AuthService.getService
           .createUserWithEmailAndPasswd(email, passwd);
-
-      print(credentials.user.email);
-      print(credentials.user.emailVerified);
-      print(credentials.user.uid);
+      if (userCredential != null) {
+        await AuthService.getService.verifyEmail();
+        await AuthService.getService.getAuthInstance.currentUser.reload();
+        Navigator.pushNamed(context, VerifyEmailWaitScreen.routeName);
+      }
     } catch (e) {
-      print(e);
+      Scaffold.of(context).showSnackBar(
+          SnackBar(content: Text(e.toString().replaceAll('Exception: ', ''))));
     }
   }
 }
 
 class TextInput extends StatelessWidget {
-  const TextInput(this.hintText, this.controller, this.validator, {Key key})
+  const TextInput(this.hintText, this.controller, this.validator,
+      {Key key, this.isPasswd = false})
       : super(key: key);
 
   final String hintText;
   final TextEditingController controller;
   final Function validator;
+  final bool isPasswd;
 
   @override
   Widget build(BuildContext context) {
@@ -139,6 +168,7 @@ class TextInput extends StatelessWidget {
             hintText: hintText,
           ),
           validator: validator,
+          obscureText: isPasswd,
         ),
       ),
     );

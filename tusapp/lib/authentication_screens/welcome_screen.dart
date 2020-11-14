@@ -3,7 +3,7 @@ import 'package:tusapp/crosscutting/consts.dart';
 import 'package:tusapp/crosscutting/widgets/buttons.dart';
 import 'package:tusapp/crosscutting/widgets/spacers.dart';
 
-import 'login_with_email_screen.dart';
+import 'signup_with_email_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key key}) : super(key: key);
@@ -55,8 +55,8 @@ class WelcomeScreen extends StatelessWidget {
                   WideButton(
                       buttonText: 'E-posta adresi ile kaydol',
                       onPressedFunction: () {
-                        Navigator.pushNamed(
-                            context, LoginWithEmailAndPasswordScreen.routeName);
+                        Navigator.pushNamed(context,
+                            SignupWithEmailAndPasswordScreen.routeName);
                       }),
                   SimpleSpacer(),
                   WideButton(

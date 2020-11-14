@@ -2,19 +2,27 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
   static AuthService _authServiceInstance;
-  AuthService._();
-  static AuthService get getInstance =>
+  FirebaseAuth _authInstance;
+  AuthService._() {
+    _authInstance = FirebaseAuth.instance;
+  }
+
+  static AuthService get getService =>
       _authServiceInstance = _authServiceInstance ?? AuthService._();
 
-  FirebaseAuth _authInstance = FirebaseAuth.instance;
+  FirebaseAuth get getAuthInstance => _authInstance;
 
   // Listen the changes on the user authentication
   Stream<String> get onAuthStateChanged {
-    _authInstance.authStateChanges().listen((User user) {
+    _authInstance.userChanges().listen((User user) {
       if (user == null) {
         print('User is currently signed out!');
       } else {
         print('User is signed in!');
+      }
+
+      if (user.emailVerified) {
+        print('user email verified');
       }
     });
   }
@@ -36,9 +44,7 @@ class AuthService {
       } else if (e.code == 'invalid-email') {
         throw ('Geçersiz e-posta adresi');
       }
-    } catch (e) {
-      print('Custom error message: ' + e.code);
-      throw ('Kayıt sırasında bir hata oluştu.');
+      throw (e.code);
     }
   }
 
@@ -57,7 +63,7 @@ class AuthService {
     }
   }
 
-  Future<bool> verifyEmail() async {
+  Future<void> verifyEmail() async {
     if (!_authInstance.currentUser.emailVerified) {
       await _authInstance.currentUser.sendEmailVerification();
     }
