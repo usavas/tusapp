@@ -1,11 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
-  FirebaseAuth authInstance = FirebaseAuth.instance;
+  static AuthService _authServiceInstance;
+  AuthService._();
+  static AuthService get getInstance =>
+      _authServiceInstance = _authServiceInstance ?? AuthService._();
+
+  FirebaseAuth _authInstance = FirebaseAuth.instance;
 
   // Listen the changes on the user authentication
   Stream<String> get onAuthStateChanged {
-    authInstance.authStateChanges().listen((User user) {
+    _authInstance.authStateChanges().listen((User user) {
       if (user == null) {
         print('User is currently signed out!');
       } else {
@@ -15,29 +20,32 @@ class AuthService {
   }
 
   Future<UserCredential> signInAnonymously() async {
-    await authInstance.signInAnonymously();
+    await _authInstance.signInAnonymously();
   }
 
-  Future<UserCredential> createWithEmailAndPasswd(
+  Future<UserCredential> createUserWithEmailAndPasswd(
       String email, String passwd) async {
     try {
-      UserCredential userCredential = await authInstance
-          .createUserWithEmailAndPassword(email: email, password: passwd);
+      return await _authInstance.createUserWithEmailAndPassword(
+          email: email, password: passwd);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        //TODO: return weak password warning
+        throw Exception('Şifreniz güçsüz');
       } else if (e.code == 'email-already-in-use') {
-        //TODO: return this email is already taken error
+        throw Exception('E-posta adresi zaten kullanımda');
+      } else if (e.code == 'invalid-email') {
+        throw ('Geçersiz e-posta adresi');
       }
     } catch (e) {
-      //TODO: return other error
+      print('Custom error message: ' + e.code);
+      throw ('Kayıt sırasında bir hata oluştu.');
     }
   }
 
   Future<UserCredential> signInWithEmailAndPasswd(
       String email, String passwd) async {
     try {
-      UserCredential userCredential = await authInstance
+      UserCredential userCredential = await _authInstance
           .signInWithEmailAndPassword(email: email, password: passwd);
       return userCredential;
     } on FirebaseAuthException catch (e) {
@@ -50,8 +58,8 @@ class AuthService {
   }
 
   Future<bool> verifyEmail() async {
-    if (!authInstance.currentUser.emailVerified) {
-      await authInstance.currentUser.sendEmailVerification();
+    if (!_authInstance.currentUser.emailVerified) {
+      await _authInstance.currentUser.sendEmailVerification();
     }
   }
 }
