@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tusapp/authentication/auth_shared_pref.dart';
 import 'package:tusapp/crosscutting/consts.dart';
 import 'package:tusapp/crosscutting/widgets/spacers.dart';
 import 'package:tusapp/main_screens/past_years_exams_screen.dart';
@@ -18,6 +19,25 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.indigo,
+      ),
+      drawer: Drawer(
+          child: Column(
+        children: [
+          Text('drawer items'),
+          WiderSpacer(),
+          FlatButton(
+            child: Text('forget passwd'),
+            onPressed: () async {
+              await AuthSharedPref.instance.setForgetPassword();
+              AuthSharedPref.instance
+                  .remembersPasswd()
+                  .then((value) => print(value));
+            },
+          )
+        ],
+      )),
       body: SafeArea(
         child: Container(
           decoration: kPageBgDecoration,

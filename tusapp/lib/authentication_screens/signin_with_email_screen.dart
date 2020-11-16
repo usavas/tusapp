@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tusapp/authentication/auth_service.dart';
-import 'package:tusapp/authentication_screens/auth_shared_pref.dart';
+import 'package:tusapp/authentication/auth_shared_pref.dart';
 import 'package:tusapp/crosscutting/consts.dart';
 import 'package:tusapp/crosscutting/widgets/buttons.dart';
 import 'package:tusapp/crosscutting/widgets/spacers.dart';

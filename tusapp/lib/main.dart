@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:tusapp/authentication_screens/auth_shared_pref.dart';
+import 'package:tusapp/authentication/auth_shared_pref.dart';
 import 'package:tusapp/authentication_screens/signin_with_email_screen.dart';
 import 'package:tusapp/authentication_screens/signup_with_email_screen.dart';
 import 'package:tusapp/authentication_screens/verify_email_wait_screen.dart';
