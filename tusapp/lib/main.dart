@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
           }
           if (snapshot.connectionState == ConnectionState.done) {
             return MaterialApp(
-              initialRoute: WelcomeScreen.routeName,
+              initialRoute: SigninWithEmailAndPasswordScreen.routeName,
               routes: {
                 '/': (context) => HomeScreen(),
                 PastYearsExamsScreen.routeName: (context) =>
@@ -40,7 +40,8 @@ class MyApp extends StatelessWidget {
                 QuizScreen.routeName: (context) => QuizScreen(),
                 QuizResultScreen.routeName: (context) => QuizResultScreen(),
                 CreateUserScreen.routeName: (context) => CreateUserScreen(),
-                WelcomeScreen.routeName: (context) => WelcomeScreen(),
+                ChooseSignupOptionScreen.routeName: (context) =>
+                    ChooseSignupOptionScreen(),
                 SignupWithEmailAndPasswordScreen.routeName: (context) =>
                     SignupWithEmailAndPasswordScreen(),
                 SigninWithEmailAndPasswordScreen.routeName: (context) =>

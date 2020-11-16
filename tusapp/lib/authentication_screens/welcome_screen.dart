@@ -5,8 +5,8 @@ import 'package:tusapp/crosscutting/widgets/spacers.dart';
 
 import 'signup_with_email_screen.dart';
 
-class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({Key key}) : super(key: key);
+class ChooseSignupOptionScreen extends StatelessWidget {
+  const ChooseSignupOptionScreen({Key key}) : super(key: key);
   static final routeName = '/welcome_screen';
 
   @override

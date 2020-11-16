@@ -56,10 +56,13 @@ class AuthService {
       return userCredential;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        //TODO: return user not found with this email error
+        throw ('Kullanıcı bulunamadı');
       } else if (e.code == 'wrong-password') {
-        //TODO: return password wrong error
+        throw ('Şifre hatalı');
+      } else if (e.code == 'invalid-email') {
+        throw ('E-posta adresi hatalı');
       }
+      throw ('Giriş işlemi başarısız oldu, lütfen tekrar deneyin');
     }
   }
 
