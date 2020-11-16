@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CreateUserScreen extends StatefulWidget {
   CreateUserScreen({Key key}) : super(key: key);
 
-  static final routeName = '/create_user_screen';
+  static final routeName = '/auth/create_user_screen';
 
   @override
   _CreateUserScreenState createState() => _CreateUserScreenState();

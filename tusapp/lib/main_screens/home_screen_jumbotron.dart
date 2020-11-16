@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:tusapp/authentication/auth_service.dart';
 
 class HomeScreenJumbotron extends StatefulWidget {
   HomeScreenJumbotron({Key key}) : super(key: key);
@@ -26,7 +28,9 @@ class _HomeScreenJumbotronState extends State<HomeScreenJumbotron> {
             SizedBox(
               height: 20,
             ),
-            Text('Merhaba,\nDr. Mustafa Tasci',
+            Text(
+                'Merhaba,\n' +
+                    AuthService.getService.getAuthInstance.currentUser.email,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline2),
             SizedBox(

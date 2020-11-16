@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:tusapp/crosscutting/consts.dart';
+import 'package:tusapp/main_screens/home_screen.dart';
 import 'package:tusapp/quiz_screens/quiz_screen.dart';
 
 class QuizResultScreen extends StatelessWidget {
   const QuizResultScreen({Key key}) : super(key: key);
-  static const String routeName = '/quiz_result_screen';
+  static const String routeName = QuizScreen.routeName + '/quiz_result_screen';
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +51,9 @@ class QuizResultScreen extends StatelessWidget {
                   ),
                   child: Text('Ana Ekrana Dön'),
                   onPressed: () {
-                    Navigator.popUntil((context), ModalRoute.withName('/'));
+                    //TODO: fix popuntil broken
+                    Navigator.popUntil(
+                        (context), ModalRoute.withName(HomeScreen.routeName));
                   },
                 ),
               ),

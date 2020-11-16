@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tusapp/crosscutting/consts.dart';
 import 'package:tusapp/crosscutting/widgets/spacers.dart';
+import 'package:tusapp/main_screens/home_screen.dart';
 import 'package:tusapp/quiz_screens/quiz_result_screen.dart';
 
 import 'mockData.dart';
@@ -10,7 +11,7 @@ import 'selected_option_provider.dart';
 
 class QuizScreen extends StatefulWidget {
   QuizScreen({Key key}) : super(key: key);
-  static const String routeName = '/quiz_screen';
+  static const String routeName = HomeScreen.routeName + '/quiz_screen';
 
   @override
   _QuizScreenState createState() => _QuizScreenState();
@@ -76,7 +77,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                   ? () {
                                       if (isLastQuestion) {
                                         Navigator.pushNamed(
-                                            context, '/quiz_result_screen',
+                                            context, QuizResultScreen.routeName,
                                             arguments: QuestionResultArguments(
                                                 provider.countCorrectAnswers,
                                                 numberOfQuestions));

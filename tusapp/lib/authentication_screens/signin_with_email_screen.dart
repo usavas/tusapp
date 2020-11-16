@@ -5,6 +5,7 @@ import 'package:tusapp/crosscutting/consts.dart';
 import 'package:tusapp/crosscutting/widgets/buttons.dart';
 import 'package:tusapp/crosscutting/widgets/spacers.dart';
 import 'package:tusapp/crosscutting/widgets/text_input.dart';
+import 'package:tusapp/main_screens/home_screen.dart';
 
 class SigninWithEmailAndPasswordScreen extends StatefulWidget {
   SigninWithEmailAndPasswordScreen({Key key}) : super(key: key);
@@ -87,6 +88,7 @@ class _SigninWithEmailAndPasswordScreenState
                               buttonText: 'Giriş yap',
                               onPressedFunction: () {
                                 if (_formKey.currentState.validate()) {
+                                  //TODO: implement remember pasword option
                                   _login(context, _emailController.text,
                                       _passwdController.text);
                                 }
@@ -106,8 +108,15 @@ class _SigninWithEmailAndPasswordScreenState
 
   _login(BuildContext context, String email, String passwd) async {
     try {
-      UserCredential ucerCredential =
+      UserCredential userCredential =
           await AuthService.getService.signInWithEmailAndPasswd(email, passwd);
+      if (userCredential.user != null) {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomeScreen(),
+            ));
+      }
     } catch (e) {
       Scaffold.of(context).showSnackBar(SnackBar(
         content: Text(e.toString().replaceAll('Exception: ', '')),

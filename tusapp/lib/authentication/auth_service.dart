@@ -28,7 +28,13 @@ class AuthService {
   }
 
   Future<UserCredential> signInAnonymously() async {
-    await _authInstance.signInAnonymously();
+    UserCredential userCredential;
+    try {
+      userCredential = await _authInstance.signInAnonymously();
+      return userCredential;
+    } catch (e) {
+      throw ('Anonim giriş esnasında bir sorun oluştu, lütfen daha sonra tekrar deneyin :(');
+    }
   }
 
   Future<UserCredential> createUserWithEmailAndPasswd(

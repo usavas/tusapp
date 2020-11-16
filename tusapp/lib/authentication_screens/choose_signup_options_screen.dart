@@ -7,7 +7,7 @@ import 'signup_with_email_screen.dart';
 
 class ChooseSignupOptionScreen extends StatelessWidget {
   const ChooseSignupOptionScreen({Key key}) : super(key: key);
-  static final routeName = '/welcome_screen';
+  static final routeName = '/auth/welcome_screen';
 
   @override
   Widget build(BuildContext context) {

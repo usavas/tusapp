@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:tusapp/main_screens/home_screen.dart';
+import 'package:tusapp/quiz_screens/quiz_screen.dart';
 
 import '../crosscutting/widgets/buttons.dart';
 
 class PastYearsExamsScreen extends StatelessWidget {
   const PastYearsExamsScreen({Key key}) : super(key: key);
-  static const String routeName = '/past_years_exams_screen';
+  static const String routeName =
+      HomeScreen.routeName + '/past_years_exams_screen';
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -50,7 +53,7 @@ class PastYearQuestions extends StatelessWidget {
         child: WideButton(
       buttonText: (2020 - index).toString() + ' Yılı Soruları',
       onPressedFunction: () {
-        Navigator.pushNamed(context, '/quiz_screen');
+        Navigator.pushNamed(context, QuizScreen.routeName);
       },
     ));
   }
