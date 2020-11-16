@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tusapp/authentication/auth_service.dart';
+import 'package:tusapp/authentication_screens/auth_shared_pref.dart';
 import 'package:tusapp/crosscutting/consts.dart';
 import 'package:tusapp/crosscutting/widgets/buttons.dart';
 import 'package:tusapp/crosscutting/widgets/spacers.dart';
@@ -73,6 +74,13 @@ class _SigninWithEmailAndPasswordScreenState
                                   onChanged: (isChecked) {
                                     setState(() {
                                       _rememberPasswd = isChecked;
+                                      if (isChecked) {
+                                        AuthSharedPref.instance
+                                            .setRememberPasswd();
+                                      } else {
+                                        AuthSharedPref.instance
+                                            .setForgetPassword();
+                                      }
                                     });
                                   }),
                               Text('Şifremi hatırla',
@@ -88,7 +96,6 @@ class _SigninWithEmailAndPasswordScreenState
                               buttonText: 'Giriş yap',
                               onPressedFunction: () {
                                 if (_formKey.currentState.validate()) {
-                                  //TODO: implement remember pasword option
                                   _login(context, _emailController.text,
                                       _passwdController.text);
                                 }
