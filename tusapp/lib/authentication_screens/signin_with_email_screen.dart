@@ -77,9 +77,17 @@ class _SigninWithEmailAndPasswordScreenState
                                       if (isChecked) {
                                         AuthSharedPref.instance
                                             .setRememberPasswd();
+                                        AuthSharedPref.instance
+                                            .remembersPasswd()
+                                            .then((value) =>
+                                                print(value.toString()));
                                       } else {
                                         AuthSharedPref.instance
                                             .setForgetPassword();
+                                        AuthSharedPref.instance
+                                            .remembersPasswd()
+                                            .then((value) =>
+                                                print(value.toString()));
                                       }
                                     });
                                   }),
