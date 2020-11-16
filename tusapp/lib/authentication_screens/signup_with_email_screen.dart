@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:tusapp/authentication_screens/signin_with_email_screen.dart';
 import 'package:tusapp/authentication_screens/verify_email_wait_screen.dart';
 import 'package:tusapp/crosscutting/consts.dart';
 import 'package:tusapp/crosscutting/widgets/buttons.dart';
 import 'package:tusapp/crosscutting/widgets/spacers.dart';
 import 'package:tusapp/authentication/auth_service.dart';
+import 'package:tusapp/crosscutting/widgets/text_input.dart';
 
 class SignupWithEmailAndPasswordScreen extends StatefulWidget {
   SignupWithEmailAndPasswordScreen({Key key}) : super(key: key);
@@ -86,6 +86,7 @@ class _SignupWithEmailAndPasswordScreenState
                           WiderSpacer(),
                           Builder(
                             builder: (context) => WideButton(
+                                backgroundColor: kActionButtonColor,
                                 buttonText: 'Kaydol',
                                 onPressedFunction: () {
                                   if (_formKey.currentState.validate()) {
@@ -128,7 +129,7 @@ class _SignupWithEmailAndPasswordScreenState
           Scaffold.of(context).showSnackBar(SnackBar(
             content: Text('Zaten kaydınız var. Login ekranına gidiniz.'),
           ));
-          return;
+          // return;
         }
       }
       UserCredential userCredential = await AuthService.getService
@@ -136,41 +137,12 @@ class _SignupWithEmailAndPasswordScreenState
       if (userCredential != null) {
         await AuthService.getService.verifyEmail();
         await AuthService.getService.getAuthInstance.currentUser.reload();
-        Navigator.pushNamed(context, VerifyEmailWaitScreen.routeName);
       }
     } catch (e) {
       Scaffold.of(context).showSnackBar(
           SnackBar(content: Text(e.toString().replaceAll('Exception: ', ''))));
     }
-  }
-}
 
-class TextInput extends StatelessWidget {
-  const TextInput(this.hintText, this.controller, this.validator,
-      {Key key, this.isPasswd = false})
-      : super(key: key);
-
-  final String hintText;
-  final TextEditingController controller;
-  final Function validator;
-  final bool isPasswd;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: kWidgetInnerPadding),
-        width: double.infinity,
-        decoration: kInputFieldBgDecoration,
-        child: TextFormField(
-          controller: controller,
-          decoration: InputDecoration(
-            hintText: hintText,
-          ),
-          validator: validator,
-          obscureText: isPasswd,
-        ),
-      ),
-    );
+    Navigator.pushNamed(context, VerifyEmailWaitScreen.routeName);
   }
 }

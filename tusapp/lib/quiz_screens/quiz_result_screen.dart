@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tusapp/crosscutting/consts.dart';
 import 'package:tusapp/quiz_screens/quiz_screen.dart';
 
 class QuizResultScreen extends StatelessWidget {
@@ -42,7 +43,7 @@ class QuizResultScreen extends StatelessWidget {
               Container(
                 width: 200,
                 child: RaisedButton(
-                  color: Color(0xFF3FE4F1),
+                  color: kActionButtonColor,
                   padding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),

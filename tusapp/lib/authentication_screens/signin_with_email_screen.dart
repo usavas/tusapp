@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tusapp/authentication/auth_service.dart';
 import 'package:tusapp/crosscutting/consts.dart';
+import 'package:tusapp/crosscutting/widgets/buttons.dart';
 
 class SigninWithEmailAndPasswordScreen extends StatefulWidget {
   SigninWithEmailAndPasswordScreen({Key key}) : super(key: key);
@@ -31,7 +32,7 @@ class _SigninWithEmailAndPasswordScreenState
                         style: Theme.of(context)
                             .textTheme
                             .headline4
-                            .copyWith(color: kLightTextColor))
+                            .copyWith(color: kLightTextColor)),
                   ],
                 ),
               ),

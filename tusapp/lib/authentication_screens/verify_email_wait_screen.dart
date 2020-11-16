@@ -33,6 +33,7 @@ class VerifyEmailWaitScreen extends StatelessWidget {
                 ),
                 WiderSpacer(),
                 WideButton(
+                  backgroundColor: kActionButtonColor,
                   buttonText: 'E-posta adresimi doğruladım.',
                   onPressedFunction: () {
                     AuthService.getService.getAuthInstance.currentUser.reload();
