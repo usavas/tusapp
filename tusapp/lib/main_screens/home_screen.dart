@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:tusapp/authentication/auth_service.dart';
 import 'package:tusapp/authentication/auth_shared_pref.dart';
 import 'package:tusapp/crosscutting/consts.dart';
+import 'package:tusapp/crosscutting/widgets/buttons.dart';
 import 'package:tusapp/crosscutting/widgets/spacers.dart';
 import 'package:tusapp/main_screens/past_years_exams_screen.dart';
-import '../crosscutting/widgets/buttons.dart';
-import '../main_screens/home_screen_jumbotron.dart';
+
+import 'home_screen_jumbotron.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
