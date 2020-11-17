@@ -10,7 +10,9 @@ class AuthService {
   static AuthService get getService =>
       _authServiceInstance = _authServiceInstance ?? AuthService._();
 
-  FirebaseAuth get getAuthInstance => _authInstance;
+  // FirebaseAuth get getAuthInstance => _authInstance;
+
+  User get getCurrentUser => _authInstance.currentUser;
 
   // Listen the changes on the user authentication
   Stream<String> get onAuthStateChanged {

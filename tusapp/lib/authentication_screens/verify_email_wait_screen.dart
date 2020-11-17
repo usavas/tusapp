@@ -36,16 +36,14 @@ class VerifyEmailWaitScreen extends StatelessWidget {
                   backgroundColor: kActionButtonColor,
                   buttonText: 'E-posta adresimi doğruladım.',
                   onPressedFunction: () {
-                    AuthService.getService.getAuthInstance.currentUser.reload();
+                    AuthService.getService.getCurrentUser.reload();
                     print('email verified? : ' +
-                        AuthService.getService.getAuthInstance.currentUser
-                            .emailVerified
+                        AuthService.getService.getCurrentUser.emailVerified
                             .toString());
                     print(FirebaseAuth.instance.currentUser.emailVerified
                         .toString());
                     print(FirebaseAuth.instance.currentUser.email);
-                    if (AuthService
-                        .getService.getAuthInstance.currentUser.emailVerified) {
+                    if (AuthService.getService.getCurrentUser.emailVerified) {
                       Navigator.pushNamed(
                           context, SigninWithEmailAndPasswordScreen.routeName);
                     }

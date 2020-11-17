@@ -30,29 +30,27 @@ class _HomeScreenState extends State<HomeScreen> {
           UserAccountsDrawerHeader(
               decoration:
                   BoxDecoration(shape: BoxShape.rectangle, color: Colors.blue),
-              currentAccountPicture: (AuthService
-                          .getService.getAuthInstance.currentUser.photoURL !=
-                      null)
-                  ? Image.network(AuthService
-                      .getService.getAuthInstance.currentUser.photoURL)
-                  : ClipRRect(
-                      borderRadius: BorderRadius.circular(32),
-                      clipBehavior: Clip.antiAlias,
-                      child: Container(
-                        color: Colors.green,
-                        child: Icon(
-                          Icons.person,
-                          size: 64,
-                          color: kLightTextColor,
+              currentAccountPicture:
+                  (AuthService.getService.getCurrentUser.photoURL != null)
+                      ? Image.network(
+                          AuthService.getService.getCurrentUser.photoURL)
+                      : ClipRRect(
+                          borderRadius: BorderRadius.circular(32),
+                          clipBehavior: Clip.antiAlias,
+                          child: Container(
+                            color: Colors.green,
+                            child: Icon(
+                              Icons.person,
+                              size: 64,
+                              color: kLightTextColor,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-              accountName: Text((AuthService
-                      .getService.getAuthInstance.currentUser?.displayName ??
-                  'User with no name')),
-              accountEmail: Text(
-                  (AuthService.getService.getAuthInstance.currentUser?.email ??
-                      ''))),
+              accountName: Text(
+                  (AuthService.getService.getCurrentUser?.displayName ??
+                      'User with no name')),
+              accountEmail:
+                  Text((AuthService.getService.getCurrentUser?.email ?? ''))),
           WiderSpacer(),
           ListTile(
             leading: FutureBuilder(

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tusapp/authentication/auth_service.dart';
 import 'package:tusapp/authentication/auth_shared_pref.dart';
+import 'package:tusapp/authentication_screens/signup_with_email_screen.dart';
 import 'package:tusapp/crosscutting/consts.dart';
 import 'package:tusapp/crosscutting/widgets/buttons.dart';
 import 'package:tusapp/crosscutting/widgets/spacers.dart';
@@ -40,7 +41,7 @@ class _SigninWithEmailAndPasswordScreenState
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Sign In Screen',
+                    Text('E-posta ile giris yap',
                         style: Theme.of(context)
                             .textTheme
                             .headline4
@@ -94,6 +95,26 @@ class _SigninWithEmailAndPasswordScreenState
                                 }
                               },
                             ),
+                          ),
+                          SimpleSpacer(),
+                          FlatButton(
+                            child: Text(
+                              'Kaydınız yoksa yeni kayıt yapın',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .button
+                                  .copyWith(
+                                      color: kLightTextColor,
+                                      decoration: TextDecoration.underline),
+                            ),
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        SignupWithEmailAndPasswordScreen(),
+                                  ));
+                            },
                           )
                         ],
                       ),

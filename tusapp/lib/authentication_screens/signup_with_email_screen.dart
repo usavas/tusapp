@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:tusapp/authentication_screens/signin_with_email_screen.dart';
 import 'package:tusapp/authentication_screens/verify_email_wait_screen.dart';
 import 'package:tusapp/crosscutting/consts.dart';
 import 'package:tusapp/crosscutting/widgets/buttons.dart';
@@ -97,6 +98,23 @@ class _SignupWithEmailAndPasswordScreenState
                                   }
                                 }),
                           ),
+                          SimpleSpacer(),
+                          FlatButton(
+                            child: Text('Zaten hesabınız varsa giriş yapın',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .button
+                                    .copyWith(
+                                        color: kLightTextColor,
+                                        decoration: TextDecoration.underline)),
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          SigninWithEmailAndPasswordScreen()));
+                            },
+                          )
                         ],
                       ))
                 ],
@@ -123,9 +141,9 @@ class _SignupWithEmailAndPasswordScreenState
   _createUserWithEmailAndPasswd(
       String email, String passwd, BuildContext context) async {
     try {
-      if (AuthService.getService.getAuthInstance.currentUser != null) {
-        await AuthService.getService.getAuthInstance.currentUser.reload();
-        if (AuthService.getService.getAuthInstance.currentUser.emailVerified) {
+      if (AuthService.getService.getCurrentUser != null) {
+        await AuthService.getService.getCurrentUser.reload();
+        if (AuthService.getService.getCurrentUser.emailVerified) {
           Scaffold.of(context).showSnackBar(SnackBar(
             content: Text('Zaten kaydınız var. Login ekranına gidiniz.'),
           ));
@@ -136,7 +154,7 @@ class _SignupWithEmailAndPasswordScreenState
           .createUserWithEmailAndPasswd(email, passwd);
       if (userCredential != null) {
         await AuthService.getService.verifyEmail();
-        await AuthService.getService.getAuthInstance.currentUser.reload();
+        await AuthService.getService.getCurrentUser.reload();
       }
     } catch (e) {
       Scaffold.of(context).showSnackBar(

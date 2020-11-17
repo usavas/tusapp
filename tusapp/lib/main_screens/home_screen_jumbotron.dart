@@ -27,9 +27,7 @@ class _HomeScreenJumbotronState extends State<HomeScreenJumbotron> {
             SizedBox(
               height: 20,
             ),
-            Text(
-                'Merhaba,\n' +
-                    AuthService.getService.getAuthInstance.currentUser.email,
+            Text('Merhaba,\n' + AuthService.getService.getCurrentUser.email,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline2),
             SizedBox(

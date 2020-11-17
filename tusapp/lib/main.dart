@@ -10,8 +10,6 @@ import 'package:tusapp/main_screens/home_screen.dart';
 import 'package:tusapp/main_screens/past_years_exams_screen.dart';
 import 'package:tusapp/quiz_screens/quiz_result_screen.dart';
 import 'package:tusapp/quiz_screens/quiz_screen.dart';
-
-import 'authentication_screens/create_user_screen.dart';
 import 'loading_screen.dart';
 
 void main() async {
@@ -42,7 +40,6 @@ class MyApp extends StatelessWidget {
                   PastYearsExamsScreen(),
               QuizScreen.routeName: (context) => QuizScreen(),
               QuizResultScreen.routeName: (context) => QuizResultScreen(),
-              CreateUserScreen.routeName: (context) => CreateUserScreen(),
               ChooseSignupOptionScreen.routeName: (context) =>
                   ChooseSignupOptionScreen(),
               SignupWithEmailAndPasswordScreen.routeName: (context) =>
