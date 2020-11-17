@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tusapp/authentication/auth_service.dart';
 import 'package:tusapp/authentication/auth_shared_pref.dart';
 import 'package:tusapp/crosscutting/consts.dart';
 import 'package:tusapp/crosscutting/widgets/spacers.dart';
@@ -16,6 +17,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  // bool _remembersPasswd = false;
+
+  _setRememberPasswordStatus(value) async {
+    AuthSharedPref.instance.setRememberPasswdStatus(value);
+    AuthSharedPref.instance.remembersPasswd().then((value) =>
+        print('auth remember status changed on drawer: ' + value.toString()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,17 +34,45 @@ class _HomeScreenState extends State<HomeScreen> {
       drawer: Drawer(
           child: Column(
         children: [
-          Text('drawer items'),
+          UserAccountsDrawerHeader(
+              decoration:
+                  BoxDecoration(shape: BoxShape.rectangle, color: Colors.blue),
+              currentAccountPicture: (AuthService
+                          .getService.getAuthInstance.currentUser.photoURL !=
+                      null)
+                  ? Image.network(AuthService
+                      .getService.getAuthInstance.currentUser.photoURL)
+                  : ClipRRect(
+                      borderRadius: BorderRadius.circular(32),
+                      clipBehavior: Clip.antiAlias,
+                      child: Container(
+                        color: Colors.green,
+                        child: Icon(
+                          Icons.person,
+                          size: 64,
+                          color: kLightTextColor,
+                        ),
+                      ),
+                    ),
+              accountName: Text((AuthService
+                      .getService.getAuthInstance.currentUser?.displayName ??
+                  'User with no name')),
+              accountEmail: Text(
+                  (AuthService.getService.getAuthInstance.currentUser?.email ??
+                      ''))),
           WiderSpacer(),
-          FlatButton(
-            child: Text('forget passwd'),
-            onPressed: () async {
-              await AuthSharedPref.instance.setForgetPassword();
-              AuthSharedPref.instance
-                  .remembersPasswd()
-                  .then((value) => print(value));
-            },
-          )
+          ListTile(
+            leading: FutureBuilder(
+              future: AuthSharedPref.instance.remembersPasswd(),
+              builder: (context, AsyncSnapshot<bool> snapshot) => Switch(
+                  value: snapshot.data ?? false,
+                  onChanged: (value) async {
+                    AuthSharedPref.instance.setRememberPasswdStatus(value);
+                    setState(() {});
+                  }),
+            ),
+            title: Text('Şifreyi hatırla'),
+          ),
         ],
       )),
       body: SafeArea(

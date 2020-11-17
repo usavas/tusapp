@@ -68,6 +68,8 @@ class AuthService {
       } else if (e.code == 'invalid-email') {
         throw ('E-posta adresi hatalı');
       }
+      // google api bug for firebase_auth
+      print(e);
       throw ('Giriş işlemi başarısız oldu, lütfen tekrar deneyin');
     }
   }

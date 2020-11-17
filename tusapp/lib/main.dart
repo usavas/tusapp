@@ -29,8 +29,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: AuthSharedPref.instance.remembersPasswd(),
-      builder: (context, snapshot) {
+      builder: (context, AsyncSnapshot<bool> snapshot) {
         if (snapshot.hasData) {
+          print(snapshot.data);
           return MaterialApp(
             initialRoute: snapshot.data
                 ? HomeScreen.routeName

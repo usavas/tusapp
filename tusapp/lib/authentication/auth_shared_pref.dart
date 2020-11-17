@@ -14,15 +14,20 @@ class AuthSharedPref {
     return await SharedPreferences.getInstance();
   }
 
-  Future<void> setRememberPasswd() async {
+  Future<void> setRememberPasswdStatus(bool value) async {
     SharedPreferences pref = await _getSharedPreferenceInstance();
-    pref.setBool(_authKey, true);
+    pref.setBool(_authKey, value);
   }
 
-  Future<void> setForgetPassword() async {
-    SharedPreferences pref = await _getSharedPreferenceInstance();
-    pref.setBool(_authKey, false);
-  }
+  // Future<void> setRememberPasswd() async {
+  //   SharedPreferences pref = await _getSharedPreferenceInstance();
+  //   pref.setBool(_authKey, true);
+  // }
+
+  // Future<void> setForgetPassword() async {
+  //   SharedPreferences pref = await _getSharedPreferenceInstance();
+  //   pref.setBool(_authKey, false);
+  // }
 
   Future<bool> remembersPasswd() async {
     SharedPreferences pref = await _getSharedPreferenceInstance();

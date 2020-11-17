@@ -74,21 +74,6 @@ class _SigninWithEmailAndPasswordScreenState
                                   onChanged: (isChecked) {
                                     setState(() {
                                       _rememberPasswd = isChecked;
-                                      if (isChecked) {
-                                        AuthSharedPref.instance
-                                            .setRememberPasswd();
-                                        AuthSharedPref.instance
-                                            .remembersPasswd()
-                                            .then((value) =>
-                                                print(value.toString()));
-                                      } else {
-                                        AuthSharedPref.instance
-                                            .setForgetPassword();
-                                        AuthSharedPref.instance
-                                            .remembersPasswd()
-                                            .then((value) =>
-                                                print(value.toString()));
-                                      }
                                     });
                                   }),
                               Text('Şifremi hatırla',
@@ -126,6 +111,7 @@ class _SigninWithEmailAndPasswordScreenState
       UserCredential userCredential =
           await AuthService.getService.signInWithEmailAndPasswd(email, passwd);
       if (userCredential.user != null) {
+        AuthSharedPref.instance.setRememberPasswdStatus(_rememberPasswd);
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
