@@ -51,7 +51,6 @@ class QuizResultScreen extends StatelessWidget {
                   ),
                   child: Text('Ana Ekrana Dön'),
                   onPressed: () {
-                    //TODO: fix popuntil broken
                     Navigator.popUntil(
                         (context), ModalRoute.withName(HomeScreen.routeName));
                   },

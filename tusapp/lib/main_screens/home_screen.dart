@@ -18,14 +18,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // bool _remembersPasswd = false;
-
-  _setRememberPasswordStatus(value) async {
-    AuthSharedPref.instance.setRememberPasswdStatus(value);
-    AuthSharedPref.instance.remembersPasswd().then((value) =>
-        print('auth remember status changed on drawer: ' + value.toString()));
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
